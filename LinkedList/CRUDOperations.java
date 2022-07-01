@@ -1,6 +1,10 @@
 package DsaOne.LinkedList;
 
 public class CRUDOperations {
+    private int size;
+   CRUDOperations(){
+    this.size=0;
+    }
     Node head;
     public class Node{
         String data;
@@ -8,6 +12,7 @@ public class CRUDOperations {
         Node (String data){
         this.data=data;
         this.next=null;
+        size++;
         }
        }
     
@@ -34,11 +39,26 @@ public class CRUDOperations {
             currentNode.next=newNode;
         
     }
+
+    // add-apecific
+    public void addSpecific(int position,String data){
+        Node currNode=head;
+        for(int i=0;i<position-1;i++){
+            currNode=currNode.next;
+        }
+        Node newNode=new Node(data);
+       newNode.next= currNode.next;
+       currNode.next=newNode;
+
+    }
 // delete
     public void delete(int position){
+      size--;
         if(position==0){
             head=head.next;
+            return;
         }
+       
         Node prev=head;
         for(int i=0;i<position-1;i++)
         prev=prev.next;
@@ -61,17 +81,27 @@ public class CRUDOperations {
         System.out.println("NULL");
     
     }
+
+    public int getSize(){
+        return size;
+    }
     public static void main(String[] args) {
     CRUDOperations list=new CRUDOperations();
    
        list.addFirst("a");
-       list.addFirst("is");
+      list.addFirst("is");
        list.addFirst("This");
        list.printList();
-       list.addLast("List");
+      list.addLast("List");
+         list.printList();
+      list.delete(3);
+      list.printList();
+       list.addSpecific(1,"Hello" );
+      list.printList();
+       list.delete(0);
        list.printList();
-       list.delete(3);
-       list.printList();
+       System.out.println(list.getSize());
+      
      
     }
     
