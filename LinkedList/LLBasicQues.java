@@ -45,22 +45,55 @@ public class LLBasicQues {
         }
         System.out.println("Mid element is: "+first.data);
     }
-    public boolean hasCycle(Node head) {
+     int hasCycle(Node head) {
         
         Node fast=head,slow=head;
         if(head==null){
-            return false;
+            return 0;
         }
         while(fast!=null&&fast.next!=null){
             fast=fast.next.next;
             slow=slow.next;
-            if(fast==slow)
-                return true;
+            if(fast==slow){
+            removeLoop(slow,head);
+                return 1;
+            }
         }
-        return false;
+        return 0;
     }
+    //Function to remove loop
+    void removeLoop(Node loop,Node head){
+        Node ptr1=loop;
+        Node ptr2=loop;
+        int k=1;
+        while(ptr1.next!=ptr2){
+            ptr1=ptr1.next;
+            k++;
+        }
+        ptr1=head;
+        ptr2=head;
+        for(int i=0;i<k;i++){
+            ptr2=ptr2.next;
+        }
+        while(ptr2!=ptr1){
+            ptr1=ptr1.next;
+            ptr2=ptr2.next;
+        }
+        while(ptr2.next!=ptr1){
+            ptr2=ptr2.next;
+        }
+        ptr2.next=null;
+    }
+        void printList(Node head){
+        Node current=head;
+        while(current!=null){
+            System.out.print(current.data+"->");
+            current=current.next;
+        }
+        System.out.println("NULL");
+        
+        }
 
-    
     
     public static void main(String[] args) {
         Node n1=new Node(100);
@@ -84,7 +117,8 @@ public class LLBasicQues {
         // int k=3;
         // lb.findkthfromend(head,k);
         // lb.reverseLL(head);
-      System.out.println(lb.hasCycle(head));  
+         lb.hasCycle(head); 
+         lb.printList(head);
     }
    
 
